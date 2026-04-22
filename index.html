@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SychroneRP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-1: #08111f;
+  --bg-2: #0d1830;
+  --bg-3: #12203f;
+  --card: rgba(15, 27, 52, 0.92);
+  --card-soft: rgba(43, 73, 122, 0.5);
+  --text: #eff9ff;
+  --muted: #9dc2da;
+  --neo-blue: #4bbdff;
+  --neo-blue-2: #5a7dff;
+  --neo-lime: #baff3b;
+  --border: rgba(99, 201, 255, 0.28);
+  --shadow: rgba(1, 10, 23, 0.52);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top center, rgba(75, 189, 255, 0.2), transparent 28%),
+    radial-gradient(circle at top right, rgba(186, 255, 59, 0.1), transparent 24%),
+    linear-gradient(180deg, #07111f 0%, #08111f 32%, #08111f 100%);
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), transparent 20%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.015) 0,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 140px
+    );
+  opacity: 0.25;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+.container {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(99, 201, 255, 0.14);
+  background: rgba(6, 14, 28, 0.84);
+  backdrop-filter: blur(20px);
+}
+
+.nav-inner {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.nav-logo-mark {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 10px 20px rgba(75, 189, 255, 0.3));
+}
+
+.nav-logo-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 116px;
+  padding: 12px 18px;
+  border: 1px solid rgba(99, 201, 255, 0.14);
+  border-radius: 18px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  border-color: rgba(186, 255, 59, 0.42);
+  background: linear-gradient(135deg, rgba(90, 125, 255, 0.22), rgba(75, 189, 255, 0.24));
+  transform: translateY(-1px);
+}
+
+.discord-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(129, 255, 89, 0.22);
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  color: #08111f;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(75, 189, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.creator-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  padding: 12px 18px;
+  border: 1px solid rgba(99, 201, 255, 0.24);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(12, 27, 50, 0.96), rgba(8, 20, 38, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(186, 255, 59, 0.04), 0 12px 26px rgba(1, 10, 23, 0.22);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 800;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.creator-link:hover,
+.creator-link.active {
+  transform: translateY(-1px);
+  border-color: rgba(186, 255, 59, 0.34);
+  background: linear-gradient(135deg, rgba(90, 125, 255, 0.22), rgba(75, 189, 255, 0.24));
+  box-shadow: inset 0 0 0 1px rgba(186, 255, 59, 0.08), 0 16px 30px rgba(1, 10, 23, 0.26);
+}
+
+.creators-section {
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0 80px;
+}
+
+.creators-card {
+  width: min(100%, 760px);
+  padding: 28px;
+  border: 1px solid rgba(99, 201, 255, 0.24);
+  border-radius: 28px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(75, 189, 255, 0.12), transparent 100%),
+    rgba(11, 24, 46, 0.96);
+  box-shadow: 0 20px 48px rgba(18, 8, 32, 0.28);
+}
+
+.creators-card h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 2.1rem;
+}
+
+.creators-card p {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.creator-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  object-fit: cover;
+  border: 1px solid rgba(186, 255, 59, 0.34);
+  box-shadow: 0 8px 18px rgba(1, 10, 23, 0.32);
+}
+
+.creator-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.creator-panel-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.creator-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.02;
+  align-items: center;
+}
+
+.creator-label {
+  color: #86b8d6;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.creator-name {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.discord-nav-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 16px 34px rgba(125, 255, 59, 0.18);
+}
+
+.discord-nav-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.hero {
+  padding: 0 0 64px;
+}
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  padding: 72px 56px 54px;
+  border: 1px solid rgba(99, 201, 255, 0.16);
+  border-radius: 0 0 32px 32px;
+  background:
+    linear-gradient(180deg, rgba(10, 9, 24, 0.28), rgba(16, 11, 32, 0.78)),
+    radial-gradient(circle at left center, rgba(86, 121, 255, 0.18), transparent 30%),
+    radial-gradient(circle at right center, rgba(186, 255, 59, 0.14), transparent 24%),
+    url("file:///C:/Users/IAVOR/Pictures/Shootar-erp/xqt.png") center 26% / cover no-repeat;
+  box-shadow: 0 22px 64px var(--shadow);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 16, 30, 0.16), rgba(5, 13, 24, 0.76)),
+    linear-gradient(90deg, rgba(3, 10, 19, 0.46), rgba(3, 10, 19, 0.08) 32%, rgba(8, 18, 35, 0.32) 100%);
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: auto -120px -150px auto;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75, 189, 255, 0.12), transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  min-height: 392px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-logo {
+  width: min(180px, 34vw);
+  filter: drop-shadow(0 20px 40px rgba(75, 189, 255, 0.24));
+}
+
+.hero-logo svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border: 1px solid rgba(186, 255, 59, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #dfffb0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin-top: 6px;
+  max-width: 760px;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  line-height: 0.96;
+  text-shadow: 0 14px 40px rgba(9, 4, 24, 0.45);
+}
+
+.hero p {
+  margin-top: 18px;
+  max-width: 520px;
+  color: #efe4ff;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  text-shadow: 0 8px 24px rgba(9, 4, 24, 0.4);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.btn-main,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 18px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-main {
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  color: #08111f;
+  box-shadow: 0 18px 40px rgba(75, 189, 255, 0.24);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(99, 201, 255, 0.22);
+  background: rgba(10, 19, 36, 0.56);
+  color: var(--text);
+}
+
+.btn-main:hover,
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+.rules-section {
+  padding: 64px 0 80px;
+}
+
+.home-intro {
+  padding: 26px 0 88px;
+}
+
+.intro-heading {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.intro-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  box-shadow: 0 16px 38px rgba(75, 189, 255, 0.22);
+  font-size: 1.4rem;
+  color: #08111f;
+}
+
+.intro-heading h2 {
+  max-width: 760px;
+  margin: 0 auto;
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2rem, 3.4vw, 3.5rem);
+  line-height: 0.98;
+  color: #aeeeff;
+}
+
+.intro-divider {
+  width: 54px;
+  height: 3px;
+  margin: 16px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #baff3b, transparent);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  min-height: 204px;
+  padding: 18px 16px;
+  border: 1px solid rgba(99, 201, 255, 0.18);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(75, 189, 255, 0.16), rgba(16, 38, 74, 0.62)),
+    rgba(11, 24, 46, 0.9);
+  box-shadow: 0 18px 40px rgba(18, 8, 32, 0.28);
+}
+
+.feature-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  font-size: 1rem;
+  box-shadow: 0 10px 20px rgba(75, 189, 255, 0.22);
+  color: #08111f;
+}
+
+.feature-card h3 {
+  margin-top: 14px;
+  font-size: 1.25rem;
+  line-height: 1.08;
+}
+
+.feature-card p {
+  margin-top: 12px;
+  color: #bfd6e8;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.section-heading p {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: rgba(12, 24, 45, 0.72);
+  box-shadow: 0 18px 40px rgba(18, 8, 32, 0.28);
+}
+
+.filter-btn {
+  padding: 14px 24px;
+  border: 1px solid rgba(99, 201, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e7dbfb;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-btn.active {
+  border-color: rgba(186, 255, 59, 0.35);
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  color: #08111f;
+  box-shadow: 0 10px 28px rgba(75, 189, 255, 0.24);
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+}
+
+.rules-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.rule-card {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 20px;
+  padding: 28px 30px 30px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(75, 189, 255, 0.12), transparent 80%),
+    var(--card);
+  box-shadow: 0 18px 46px rgba(18, 8, 32, 0.32);
+}
+
+.rule-number {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--neo-blue-2), var(--neo-blue), var(--neo-lime));
+  color: #08111f;
+  font-size: 1.5rem;
+  font-weight: 800;
+  box-shadow: 0 12px 24px rgba(75, 189, 255, 0.22);
+}
+
+.rule-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(1.7rem, 2vw, 2.4rem);
+  line-height: 1;
+}
+
+.rule-content p {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 1.04rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.rule-content ul {
+  margin-top: 14px;
+  padding-left: 24px;
+}
+
+.rule-content li {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.72;
+}
+
+.rule-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 8px 16px;
+  border: 1px solid rgba(186, 255, 59, 0.28);
+  border-radius: 999px;
+  background: rgba(186, 255, 59, 0.12);
+  color: #dfffb0;
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.important-box {
+  padding: 28px;
+  border: 1px solid rgba(255, 110, 110, 0.34);
+  border-radius: 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(111, 24, 45, 0.7), rgba(68, 22, 41, 0.76));
+  box-shadow: 0 18px 46px rgba(18, 8, 32, 0.32);
+}
+
+.important-box h3 {
+  margin-top: 12px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 2rem;
+}
+
+.important-box p {
+  margin-top: 12px;
+  color: #f3dce2;
+  line-height: 1.75;
+  font-weight: 600;
+}
+
+.whitelist-panel {
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0 80px;
+}
+
+.mini-card {
+  width: min(100%, 380px);
+  padding: 30px 28px;
+  border: 1px solid rgba(99, 201, 255, 0.24);
+  border-radius: 24px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(75, 189, 255, 0.12), transparent 100%),
+    rgba(11, 24, 46, 0.96);
+  box-shadow: 0 20px 48px rgba(18, 8, 32, 0.28);
+}
+
+.mini-card-icon {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(90, 125, 255, 0.22), rgba(75, 189, 255, 0.24), rgba(186, 255, 59, 0.24));
+  color: #dfffb0;
+  font-size: 2rem;
+}
+
+.mini-card h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 2rem;
+  line-height: 1.02;
+}
+
+.mini-card p {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .nav-inner {
+    padding: 14px 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-panel {
+    min-height: 460px;
+    padding: 54px 24px 38px;
+    border-radius: 0 0 26px 26px;
+  }
+
+  .rule-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 22px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 20px, 1120px);
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    min-width: 0;
+    flex: 1 1 140px;
+  }
+
+  .discord-nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .creator-badge {
+    width: 100%;
+  }
+
+  .creator-link {
+    width: 100%;
+  }
+
+  .hero {
+    padding-top: 0;
+  }
+
+  .hero h1 {
+    line-height: 1.02;
+  }
+
+  .hero-panel {
+    min-height: 430px;
+  }
+
+  .hero-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-main,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .filters {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .filter-btn {
+    flex: 1 1 130px;
+    padding: 12px 16px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+
+  .creator-list {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo">
+        <span class="nav-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGradientMain" x1="12" y1="16" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#1ED8FF"/>
+                <stop offset="0.48" stop-color="#3C55FF"/>
+                <stop offset="1" stop-color="#FF2ACB"/>
+              </linearGradient>
+              <linearGradient id="logoGradientWing" x1="14" y1="58" x2="86" y2="38" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#18D6FF"/>
+                <stop offset="1" stop-color="#D417FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M50 8L18 86L44 68L57 41L72 82L82 78L61 28L50 8Z" fill="url(#logoGradientMain)"/>
+            <path d="M12 55L32 47L24 57L32 60L30 66L12 55Z" fill="url(#logoGradientWing)"/>
+            <path d="M66 42L94 28L74 47L70 66L66 42Z" fill="url(#logoGradientWing)"/>
+            <path d="M36 70L69 56L87 79L68 69L46 76L36 70Z" fill="url(#logoGradientWing)"/>
+            <path d="M42 66L55 54L61 60L49 65L42 66Z" fill="rgba(255,255,255,0.18)"/>
+          </svg>
+        </span>
+        <span>SychroneRP</span>
+      </div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#" data-page-link="home" class="active">Начало</a></li>
+        <li><a href="#" data-page-link="rules">Правила</a></li>
+        <li><a href="#" data-page-link="whitelist">Whitelist</a></li>
+      </ul>
+      <div class="creator-badge">
+        <a href="#" class="creator-link" data-page-link="creators">Създатели на сървъра</a>
+      </div>
+      <a class="discord-nav-btn" href="https://discord.gg/eXCBZgguFb" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.08-.037 19.736 19.736 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.04.107c.36.698.77 1.363 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.418 0-1.333.955-2.418 2.157-2.418 1.211 0 2.176 1.094 2.157 2.418 0 1.333-.955 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.418 0-1.333.955-2.418 2.157-2.418 1.211 0 2.176 1.094 2.157 2.418 0 1.333-.946 2.418-2.157 2.418Z"/>
+        </svg>
+        <span>Влез в Discord</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section id="page-home" class="page active">
+    <div class="container hero">
+      <div class="hero-panel">
+        <div class="hero-content">
+          <div class="hero-brand">
+            <div class="hero-logo" aria-hidden="true">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="heroGradientMain" x1="12" y1="16" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#1ED8FF"/>
+                    <stop offset="0.48" stop-color="#3C55FF"/>
+                    <stop offset="1" stop-color="#FF2ACB"/>
+                  </linearGradient>
+                  <linearGradient id="heroGradientWing" x1="14" y1="58" x2="86" y2="38" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#18D6FF"/>
+                    <stop offset="1" stop-color="#D417FF"/>
+                  </linearGradient>
+                </defs>
+                <path d="M50 8L18 86L44 68L57 41L72 82L82 78L61 28L50 8Z" fill="url(#heroGradientMain)"/>
+                <path d="M12 55L32 47L24 57L32 60L30 66L12 55Z" fill="url(#heroGradientWing)"/>
+                <path d="M66 42L94 28L74 47L70 66L66 42Z" fill="url(#heroGradientWing)"/>
+                <path d="M36 70L69 56L87 79L68 69L46 76L36 70Z" fill="url(#heroGradientWing)"/>
+                <path d="M42 66L55 54L61 60L49 65L42 66Z" fill="rgba(255,255,255,0.18)"/>
+              </svg>
+            </div>
+            <div class="hero-kicker">За тези, които не следват, а водят!</div>
+          </div>
+          <h1>Създай своята история в SychroneRP.</h1>
+          <p>
+            Място за смислен RolePlay, ясни правила и силна общност. Началото вече е оформено
+            като hero секция по примера, който изпрати.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-main" href="#" data-go-page="whitelist">Кандидатствай Сега</a>
+            <a class="btn-secondary" href="#" data-go-page="rules">Прочети Правилата</a>
+            <a class="btn-secondary" href="#home-intro">Туториали</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="home-intro" class="container home-intro">
+      <div class="intro-heading">
+        <div class="intro-icon">🛡️</div>
+        <h2>Добре дошъл на място, където RolePlay-ът има смисъл.</h2>
+        <div class="intro-divider"></div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">🗂️</div>
+          <h3>Стабилност без компромиси!</h3>
+          <p>Сървърът работи върху оптимизирана инфраструктура, която осигурява плавна игра без лагове и сривове.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Честна и чиста игра!</h3>
+          <p>Анти-cheat защита и балансирани системи пазят равни условия за всички и правят развитието заслужено.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Уникално изживяване!</h3>
+          <p>Събития, фракции и ежедневно активни играчи създават жив свят, който следи за добрия тон и RP култура.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <h3>Без PAY TO WIN!</h3>
+          <p>Всичко се случва естествено в сървъра. Няма механики, които дават нечестно предимство срещу плащане.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-rules" class="page">
+    <div class="container rules-section">
+      <div class="section-heading">
+        <h2>Правила</h2>
+        <p>Филтрирай по категория и показвай всички правила в стила от примерните екрани.</p>
+      </div>
+
+      <div class="filters" id="filters"></div>
+      <div class="rules-grid" id="rulesGrid"></div>
+
+      <div class="important-box" style="margin-top: 18px;">
+        <div style="font-size: 2rem;">⚠️</div>
+        <h3>Важно</h3>
+        <p>
+          Нарушаването на правилата може да доведе до временен или перманентен ban от сървъра.
+          Покупка на продукт BAN APPEAL не гарантира отмяна на наказание.
+          Администрацията има последната дума при всички решения.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-whitelist" class="page">
+    <div class="container whitelist-panel">
+      <div class="mini-card">
+        <div class="mini-card-icon">📄</div>
+        <h2>Влез, за да кандидатстваш</h2>
+        <p>
+          Трябва да влезеш с Discord акаунта си, за да можеш да подадеш кандидатура.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-creators" class="page">
+    <div class="container creators-section">
+      <div class="creators-card">
+        <h2>Създатели на сървъра</h2>
+        <p>Профили на създателите</p>
+        <div class="creator-list">
+          <div class="creator-panel-inner">
+            <img class="creator-avatar" src="file:///C:/Users/IAVOR/Pictures/photo/1782703a95936e7f006dd1702b4be695.webp" alt="owner">
+            <div class="creator-copy">
+              <span class="creator-name">developer</span>
+            </div>
+          </div>
+          <div class="creator-panel-inner">
+            <img class="creator-avatar" src="file:///C:/Users/IAVOR/Pictures/photo/53df93dd74002cfac1d7a88512f15530.webp" alt="owner">
+            <div class="creator-copy">
+              <span class="creator-name">owner</span>
+            </div>
+          </div>
+          <div class="creator-panel-inner">
+            <img class="creator-avatar" src="file:///C:/Users/IAVOR/Pictures/photo/4c0ad75555a09ae00936da6db876d987.webp" alt="owner">
+            <div class="creator-copy">
+              <span class="creator-name">owner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const rules = [
+  {
+    number: 1,
+    title: 'Разяснение',
+    category: 'Полиция',
+    lines: [
+      'Полицията съди от името на държавата/щата, а не като страна в спор между двама играчи. Ако имате претенции към друг играч без полицай свидетел, полицията не може да вземе отношение.',
+      'Полицията няма правомощия да присъжда обезщетения или други имуществени облаги на която и да е страна в спор. Ако полицай арестува даден играч вследствие на действие срещу друг играч, пострадалият може да заведе гражданско дело срещу извършителя.',
+      'Полицаят има право да ви претърсва, арестува или глобява, ако носите маски, татуировки или очила, които закриват лицето.'
+    ]
+  },
+  {
+    number: 2,
+    title: 'Cop Baiting',
+    category: 'Полиция',
+    lines: [
+      'Нямате право да се месите в активни полицейски ситуации с цел подпомагане на потърпевшите.',
+      'Помощ, свързана с прикачване, tacke/drag или подобна намеса, се третира от полицията като КОД: Червено.',
+      'Помощ, свързана със запушване, блокиране или логистика, се счита за съучастие и се наказва според конституционната система на града.',
+      'Нарушаването на това правило може да доведе до ограничаване на възможността ви за игра.'
+    ]
+  },
+  {
+    number: 3,
+    title: 'Роля на адвокатите.',
+    category: 'Полиция',
+    lines: [
+      'Адвокатите съществуват, за да подобряват баланса, качеството на roleplay и да защитават правата ви по IC ред.',
+      'Процедурите и техните срокове може да се различават от реалния свят, но се очаква всички казуси да бъдат приключвани в рамките на максимум 7 дни.',
+      'Държавно обвинение: случаи, в които държавата (полиция/прокуратура) повдига обвинения срещу лице.',
+      'Граждански спор: спор между отделни лица или страни - обезщетения, щети и лични претенции.'
+    ]
+  },
+  {
+    number: 4,
+    title: 'Правило за реалистична ескалация',
+    category: 'Полиция',
+    lines: [
+      'По време на арест/задържане, отваряне на инвентар, посягане към предмети, ядене, пиене или други резки движения могат да бъдат възприети като заплаха и да доведат до ескалация.',
+      'Не отваряйте инвентар и не посягайте към нищо, докато полицаите са с извадени оръжия и ви подканват да вдигнете ръце.',
+      'Не правете резки движения, когато срещу вас има оръжие или ситуацията е напрегната.',
+      'Ако полицай ви застреля при отваряне на инвентар или друго нелетално действие, не можете директно да съдите полицая, тъй като той разполага с квалифициран имунитет.',
+      'Същото важи и при активна престрелка. Ако чуете изстрели - отдалечавайте се в обратна посока, далеч от полицията.',
+      'Ценете живота на персонажа си и играйте ситуацията зряло.'
+    ]
+  },
+  {
+    number: 5,
+    title: 'Лични документи / Рутинна проверка',
+    category: 'Полиция',
+    lines: [
+      'Когато полицай поиска документи, като гражданин имате две опции: представяте документи или правите опит за бягство, само ако е RP-логично.',
+      'Опит за измама или фалшива самоличност е престъпление. Ако не успеете - ще бъдете арестувани.',
+      '„Нямам лична карта“ или „Не казвам кой съм“ не означава, че можете да отказвате самоличност при арест.',
+      'В килиите нямате право да лъжете за самоличността си.',
+      'При несъдействие полицията има механизми да установи името ви и да ви форсне към затвора. Това не се счита за Force RP, а за прекратяване на абсурдна ситуация.',
+      'Подобно поведение може да доведе до допълнителни глоби и по-дълъг затвор.'
+    ]
+  },
+  {
+    number: 6,
+    title: '5-man rule!',
+    category: 'Групировки',
+    lines: [
+      'Нямате право да участвате с повече от 5 човека в една криминална сцена. Максимум 5 човека общо от една страна в една и съща криминална ситуация.',
+      'Правилото важи за цялата продължителност на сцената, дори тя да продължи дълго.',
+      'Изключения: официални евенти, организирани събития от сървъра, война между групировки и защита на собствена територия.',
+      'Не е позволено сменяне, вкарване или подмяна на хора в рамките на същата сцена. Ако сцената е започнала с едни участници - те са участниците докрай.'
+    ]
+  },
+  {
+    number: 7,
+    title: 'Криминална Сцена',
+    category: 'Групировки',
+    lines: [
+      'Криминална сцена е почти всичко, заради което полиция може да ви арестува - обир, отвличане, активна престрелка и насилие над друг играч.',
+      'Всяко действие, което води до полицейска реакция или арест, се приема за криминална сцена.',
+      'За участник се счита всеки, който по какъвто и да е начин подпомага извършителя - информация, логистика, стрелба, радио и присъствие на място.',
+      'Не добавяйте „шести човек, за да извадим нашия“. Това е директно нарушение на 5-man rule.',
+      'Нямате право да носите маска, ако не извършвате крайна престъпна дейност или не сте издирван.'
+    ]
+  },
+  {
+    number: 8,
+    title: 'Организирана престъпност',
+    category: 'Групировки',
+    lines: [
+      'Всеки е добре дошъл да създаде групировка, ганг или ОПГ и да развива криминално RP, стига да спазва ограниченията по-долу.',
+      'Лимит на членовете: структура с максимум 15 души.',
+      'При участие в криминални сцени важат всички лимити за брой хора и брой превозни средства.',
+      'Във всякакви престрелки групировката може да участва с максимум 2 автомобила.'
+    ]
+  },
+  {
+    number: 9,
+    title: 'Гангстерска Война',
+    category: 'Групировки',
+    lines: [
+      'Гангстерската война е състояние, в което две официални фракции водят активен конфликт помежду си.',
+      'Ако фракциите се атакуват взаимно в рамките на няколко дни и и двете страни са наясно и съгласни, може да се приеме, че има война, но това не означава автоматично официална война.',
+      'За официален режим и специални правила е необходимо изрично одобрение от екипа.',
+      'Официална война започва само след одобрение от екипа и подаден ticket с мотиви и конкретни цели.'
+    ]
+  },
+  {
+    number: 10,
+    title: 'Забрана за излизане от роля в сървъра (No OOC In-Character)',
+    category: 'Общи',
+    lines: [
+      'Всеки играч е длъжен да остане в роля от момента, в който влезе в сървъра, до момента, в който го напусне.',
+      'Не се допускат OOC реплики, коментари или оправдания в IC чат, глас или ситуации.',
+      'Всички действия, разговори и реакции трябва да бъдат в рамките на персонажа ви.',
+      'При нужда от OOC комуникация използвайте ticket или другите определени OOC канали.'
+    ]
+  },
+  {
+    number: 11,
+    title: 'Safe Zones',
+    category: 'Общи',
+    lines: [
+      'Няма Safe Zones, но има места, където определени действия са неадекватни.',
+      'В сървъра няма официални safe zones, но това не означава, че всяко действие е подходящо навсякъде.',
+      'Чувствителни обществени места като болница, пожарна, DMV и луксозни офиси изискват повече RP култура и уважение.',
+      'Мислете кое е логично, реалистично и приемливо за RP на дадената локация.'
+    ]
+  },
+  {
+    number: 12,
+    title: 'Общо образователни правила',
+    category: 'Общи',
+    lines: [
+      'Задължително е да имате работещ микрофон.',
+      'Xer Age е строго забранено.',
+      'Дръжте нормален, спокоен тон на комуникация и не злоупотребявайте с викане, крясъци или излишен шум.',
+      'Voice changer се ползва само след одобрение от екипа.',
+      'Нямате право да променяте нищо по автомобил на друг играч без негово позволение.',
+      'Забранено е да продавате имущество, ако планирате да спрете да играете.'
+    ]
+  },
+  {
+    number: 13,
+    title: 'Идентификация',
+    category: 'Общи',
+    lines: [
+      'Не може да наказвате, увреждате или убивате човек, защото сте се объркали, защото не се е обръснал или защото „звучи като него“.',
+      'Единственият валиден начин за установяване на самоличност е чрез RP доказателства - външен вид, дрехи, отличителни белези, глас при ясни условия, свидетели и пряко наблюдение.',
+      'Причината идентификацията да е важна е, че грешна саморазправа води до тежко нарушение и сериозни санкции.'
+    ]
+  },
+  {
+    number: 14,
+    title: 'Продажба на локации',
+    category: 'Общи',
+    lines: [
+      'Забранено е всякакво продаване на „локации“ на случайни играчи, с които нямате изградена RP връзка.',
+      'За да се гарантира спазването на правилото, полиция под прикритие ще патрулира и ще проверява подобни „оферти“.',
+      'Ако бъдете хванати, следва автоматичен raid на всички имоти, гаражи и автомобили, до които имате достъп.'
+    ]
+  },
+  {
+    number: 15,
+    title: 'Публични извинения/изявления',
+    category: 'Общи',
+    lines: [
+      'Нямате право да изисквате публично извинение или изявление от играчи.',
+      'Наказва се с обществено полезен труд, корекционни занятия или друга административна мярка.'
+    ]
+  },
+  {
+    number: 16,
+    title: 'Отношение играч към играч',
+    category: 'Общи',
+    lines: [
+      'Всички играчи трябва да поддържат уважителен, спокоен и зрял тон както IC, така и OOC.',
+      'Обиди, агресивно поведение или провокативно държание не се толерират, независимо от ситуацията.',
+      'Целта е качествено RP - конфликтите се решават чрез игра, а не чрез караници.'
+    ]
+  },
+  {
+    number: 17,
+    title: 'Решения и Санкции',
+    category: 'Общи',
+    lines: [
+      'Решенията на администрацията са задължителни, дори ако играчът не е съгласен с тях.',
+      'Санкциите се налагат след преценка на администраторите и могат да бъдат оспорени само по установения ред.',
+      'Опити за заобикаляне, засичане или манипулиране на административно решение водят до по-тежки наказания.'
+    ]
+  },
+  {
+    number: 18,
+    title: 'Оправдание чрез чуждо нарушение',
+    category: 'Общи',
+    lines: [
+      'Нарушение, извършено от друг играч, не е извинение да нарушите правилата и вие.',
+      '„Той пръв започна“, „Те нарушиха, затова и аз“ и подобни оправдания нямат тежест.',
+      'Всеки е отговорен сам за собствените си действия.'
+    ]
+  },
+  {
+    number: 19,
+    title: 'Discord имена и RL референции',
+    category: 'Общи',
+    lines: [
+      'Забранено е използването на истински имена, Discord имена, стриймърски псевдоними или други IRL референции в IC разговор.'
+    ]
+  },
+  {
+    number: 20,
+    title: 'Оригиналност на концепция/история + забрана за AI',
+    category: 'Кандидатури',
+    lines: [
+      'Използването на AI за апликациите също не е позволено.',
+      'Не копирайте или преправяйте чужди апликации или истории.',
+      'Не пробутвайте чужди текстове с други думи.',
+      'Не използвайте AI инструменти за генериране или преправяне на апликацията.'
+    ]
+  },
+  {
+    number: 21,
+    title: 'Споделяне на Акаунт / swap и подобни.',
+    category: 'Кандидатури',
+    lines: [
+      'Споделянето на вашия акаунт с регнат ban играч води до регламентен ban, независимо от обстоятелствата.',
+      'Ако загубите Steam или Discord акаунта си - най-добре го възстановете.',
+      'Смяната на акаунт от страна на екипа е платена.'
+    ]
+  },
+  {
+    number: 22,
+    title: 'Cheats & Графики',
+    category: 'Общи',
+    lines: [
+      'Използването на ModMenu, citizen папки, PVP графики, трейсьори, arena soundpacks и други подобни, които дават предимство, е забранено и води до регламентен ban.',
+      'Soundpack-ове, които дават предимство като по-ясни стъпки или звуци, се считат за cheating и също водят до ban.',
+      'Единствените позволени графики са такива, които правят играта по-красива и по-добра визуално, без да дават предимство.'
+    ]
+  },
+  {
+    number: 23,
+    title: 'Кога НЕ се пуска ticket!!!',
+    category: 'Важни',
+    lines: [
+      'Не се пуска ticket по време на активна RP ситуация.',
+      'Не се пуска ticket, докато ситуацията не е приключила напълно.',
+      'Не правете RP, за да пускате ticket, и не лъжете AFK, за да излезете от сцена.',
+      'Няма пауза на сцени заради OOC проблеми или спорове.'
+    ]
+  },
+  {
+    number: 24,
+    title: 'RULE-PLAYING',
+    category: 'Важни',
+    lines: [
+      'Ако смятате, че някой нарушава правилата - изиграйте ситуацията докрай, без да я прекъсвате.',
+      'Не прекратявайте сцени заради OOC драма, дискусии кое може и какво не може или излизане от персонаж.',
+      'Довършете RP ситуацията - след това пускайте ticket, ако е необходимо.',
+      'Наказанието при прекъсване на RP сцена е по-строго за този, който я прекъсва.'
+    ]
+  },
+  {
+    number: 25,
+    title: 'Gunplay over Roleplay',
+    category: 'Важни',
+    lines: [
+      'Нарушението се изразява в това да превърнеш оръжието в първи и единствен инструмент за решаване на конфликт.',
+      'Това блокира развитието на сцени и унищожава възможностите за истинско RP взаимодействие.',
+      'RP конфликтите трябва да се развиват чрез разговор, словесна ескалация, избори, грешки, преговори, компромиси, заплахи и бягство или отстъпление.',
+      'Това са инструментите на RP, а не само куршумите.'
+    ]
+  },
+  {
+    number: 26,
+    title: 'Multicharacter',
+    category: 'Важни',
+    lines: [
+      'Ако имате повече от един персонаж, между тях не трябва да има никаква IC връзка, създадена чрез вас като играч.',
+      'Вашите персонажи нямат право да взаимодействат помежду си по какъвто и да е начин.',
+      'Може да имате само един ваш персонаж, участващ в една и съща RP сцена или обект в даден момент.',
+      'Смяната на персонаж с цел влияние върху активна ситуация се счита за сериозно нарушение.'
+    ]
+  },
+  {
+    number: 27,
+    title: 'CK (Character Kill)',
+    category: 'Важни',
+    lines: [
+      'CK е окончателният край на живота на вашия персонаж.',
+      'След CK започвате изцяло нов персонаж с нова история, взаимоотношения и развитие.',
+      'CK не може да бъде наложен от друг играч под никаква форма.',
+      'Официалните признати нелегални фракции/генгове имат право да налагат CK на свои членове по IC причина, ако докажат, че фракцията съществува и логиката е оправдана.'
+    ]
+  }
+];
+
+const categories = ['Всички', 'Полиция', 'Групировки', 'Общи', 'Кандидатури', 'Важни'];
+let activeCategory = 'Всички';
+
+const rulesGrid = document.getElementById('rulesGrid');
+const filters = document.getElementById('filters');
+
+function createFilterButtons() {
+  filters.innerHTML = categories.map(category => `
+    <button
+      type="button"
+      class="filter-btn ${category === activeCategory ? 'active' : ''}"
+      data-category="${category}"
+    >
+      ${category}
+    </button>
+  `).join('');
+
+  filters.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      activeCategory = button.dataset.category;
+      createFilterButtons();
+      renderRules();
+    });
+  });
+}
+
+function renderRules() {
+  const visibleRules = activeCategory === 'Всички'
+    ? rules
+    : rules.filter(rule => rule.category === activeCategory);
+
+  rulesGrid.innerHTML = visibleRules.map(rule => `
+    <article class="rule-card">
+      <div class="rule-number">${rule.number}</div>
+      <div class="rule-content">
+        <h3 class="rule-title">${rule.title}</h3>
+        <ul>
+          ${rule.lines.map(line => `<li>${line}</li>`).join('')}
+        </ul>
+        <span class="rule-tag">${rule.category}</span>
+      </div>
+    </article>
+  `).join('');
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  document.querySelector(`#page-${name}`).classList.add('active');
+
+  document.querySelectorAll('[data-page-link]').forEach(link => {
+    link.classList.toggle('active', link.dataset.pageLink === name);
+  });
+}
+
+document.querySelectorAll('[data-page-link]').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    showPage(link.dataset.pageLink);
+  });
+});
+
+document.querySelectorAll('[data-go-page]').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    showPage(link.dataset.goPage);
+  });
+});
+
+createFilterButtons();
+renderRules();
+</script>
+
+</body>
+</html>
